@@ -50,12 +50,16 @@ var customerPrompt = function () {
     })
 };
 
+
+
+
+
 var itemPurchase = function () {
     inquirer.prompt([{
         name: "id",
         type: "input",
         message: "Enter the Item ID That you would like to puchase",
-        validate: function (value) {
+        validate: function (value){
             var pass = value.match(
                 /[1-9]/g
             );
@@ -68,14 +72,13 @@ var itemPurchase = function () {
         name: "quantity",
         type: "input",
         message: "How many would you like to purchase?",
-        validate: function (value) {
+        validate: function (value){
             var pass = value.match(
                 /[1-9]/g
             );
             if (pass) {
                 return true;
             }
-
             return 'Please enter a valid number';
         }
   
