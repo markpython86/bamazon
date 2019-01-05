@@ -15,7 +15,7 @@ This is a node application to:
 
 1. Node.js must be installed (https://nodejs.org/en/download/)
 1. MySQL must be installed. At a minimum, the free Community Edition must be present (https://www.mysql.com/downloads/) 
-1. A MySQL developer tool such as MySQL Workbench or Sequel Pro (https://www.sequelpro.com/) is needed to create and seed the database
+1. A MySQL developer tool such as MySQL Workbench or Sequel Pro (https://dev.mysql.com/downloads/workbench/) is needed to create and seed the database
 
 ### Installation
 
@@ -61,7 +61,7 @@ There are 3 js files that can be run from a terminal session. Details on executi
 ### bamazonManager.js
 
 1. run _node bamazonManager.js_ from a terminal session in the application directory
-1. Four options are presented
+1. Six options are presented
 1. **View products**
     1. A list of all products and details is presented
 1. **View products with low inventory**
