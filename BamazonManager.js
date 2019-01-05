@@ -1,6 +1,6 @@
 var mysql = require('mysql');
-var Table = require('cli-table');
 var inquirer = require('inquirer');
+var Table = require('cli-table');
 
 var displayTable = require('./TableDisplay.js');
 
@@ -46,6 +46,7 @@ function promptManager() {
 // Select all information from products table to display for Manager, prompt manager for desire to continue
 function viewProducts() {
     connection.query('SELECT * FROM products', function(err, results){        
+        if (err) throw err;
         displayForManager(results);
         promptManager(); 
     })
@@ -58,7 +59,7 @@ function viewLowInventory() {
             console.log('\n There are no products with lower than 5 in the Inventory');
             promptManager();
         } else {
-            console.log(results)
+            // console.log(results)
             console.log('\n  All products with quantity lower than 5 shown in Inventory Table\n');
             displayForManager(results);
             promptManager();
@@ -146,10 +147,11 @@ function addProduct() {
             stock_quantity: answer.quantity
         }, function(err, res) {
             console.log('\n  The new product was added - See the Inventory Table\n');
-                connection.query('SELECT * FROM products', function(err, results){  
-                    displayForManager(results);
-                    promptManager();
-                });               
+                // connection.query('SELECT * FROM products', function(err, results){  
+                //     displayForManager(results);
+                //     promptManager();
+                viewProducts();
+                // });               
         }); 
     });
 } 

@@ -84,18 +84,33 @@ var itemPurchase = function () {
   
     }]).then(function (answer) {
         // Query the database for info about the item including the quantity currently in stock.
-        connection.query('SELECT product_name, department_name, price, stock_quantity FROM products WHERE ?', { item_id: answer.id }, function (error, response) {
+        connection.query('SELECT * FROM products WHERE ?', { item_id: answer.id }, function (error, response) {
             console.log('\n  You would like to buy ' + answer.quantity + ' ' + response[0].product_name + ' ' + response[0].department_name + ' at $' + response[0].price + ' each');
             // customerPrompt();
             if (response[0].stock_quantity >= answer.quantity) {
-                let purchasedItemQuantity = response[0].stock_quantity - answer.quantity;
+                let purchasedItemQuantity = response[0].stock_quantity - parseFloat(answer.quantity);
+                let productsSold = response[0].products_sold + parseFloat(answer.quantity);
+                let productSalesPerQuantitiy = response[0].products_revenue +(response[0].price * answer.quantity);
+                // catName = response[0].department_name
                 connection.query("UPDATE products SET ? WHERE ?", [
                     {
-                        stock_quantity: purchasedItemQuantity
+                        stock_quantity: purchasedItemQuantity,
+                        products_sold: productsSold,
+                        products_revenue: productSalesPerQuantitiy
                     }, {
                         item_id: answer.id
                     }], function (error, response) {
                     });
+                
+                connection.query("UPDATE departments SET ? WHERE ?", [
+                    {
+                        product_sales: productSalesPerQuantitiy,
+                    }, {
+                        department_name: response[0].department_name
+                    }], function (error, response) {
+                    });
+        
+                
                 let itemCost = response[0].price * answer.quantity;
                 console.log('\n  Order has been fulfilled! Your total cost is $' + itemCost.toFixed(2) + '\n');
                 // Order completed
