@@ -101,8 +101,6 @@ function addInventory() {
     }]).then(function(answer) {
 
         connection.query('SELECT * FROM products WHERE ?', {item_id: answer.id},function(err,res) {
-            
-            console.log(res)
             itemQuantity = res[0].stock_quantity + parseInt(answer.quantity);
 
             connection.query("UPDATE products SET ? WHERE ?", [{
@@ -193,7 +191,7 @@ function askManager() {
     "3 - Add to Inventory\n", 
     "4 - Add New Product\n",
     "5 - Delete Product\n",
-    "6 - All Done\n",
+    "6 - Exit\n",
     ];
 
     for (i = 0; i < managerMsg.length; i++) {
@@ -231,6 +229,7 @@ function askManager() {
                      break;
 
                 case '6':
+                     console.log("Bye Bye")
                      connection.end();
                      break;       
             } 
