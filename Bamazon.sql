@@ -94,3 +94,7 @@ FROM departments d
 LEFT JOIN products p
 ON d.department_name = p.department_name
 GROUP BY department_id;
+
+
+
+-- SELECT d.department_id, d.department_name, d.over_head_costs, SUM(p.products_revenue) product_sales, SUM(p.products_revenue) - over_head_costs total_profit FROM departments d LEFT JOIN products p ON d.department_name = p.department_name GROUP BY department_id;

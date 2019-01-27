@@ -48,7 +48,6 @@ function promptSupervisor() {
     });
 }
 
-
 var viewSales = function () {
     connection.query('SELECT d.department_id, d.department_name, d.over_head_costs, SUM(p.products_revenue) product_sales, SUM(p.products_revenue) - over_head_costs total_profit FROM departments d LEFT JOIN products p ON d.department_name = p.department_name GROUP BY department_id;', function(err, results){  
         if (err) throw err;      
@@ -56,48 +55,6 @@ var viewSales = function () {
         promptSupervisor(); 
     });
 }
-
-// function viewSales() {
-
-//     const deptArr = new Table({
-//         head: ['Department Id', 'Department Name', 'Overhead Costs', 'Product Sales', 'Total Profit'],
-//         colWidths: [15, 40, 16, 16, 16],
-//     });
-
-
-//     const query = "SELECT d.department_id, d.department_name, d.over_head_costs, SUM(p.products_revenue) product_sales, SUM(p.products_revenue) - over_head_costs total_profit FROM departments d LEFT JOIN products p ON d.department_name = p.department_name GROUP BY department_id;";
-
-//     connection.query(query, {}, function (err, res) {
-   
-//         if (err) throw err;
-
-//         if (res.length) {
-//             res.forEach(prodDept => {
-
-//                 if (!prodDept.sales) {
-//                     prodDept.sales = parseFloat(0);
-//                     prodDept.profit = parseFloat(prodDept.sales - prodDept.dept_overhead).toFixed(2);
-//                 };
-//                 // if (!prodDept.profit) {
-//                 //     prodDept.profit = parseFloat(prodDept.product_sales - prodDept.dept_overhead).toFixed(2);
-//                 // }
-//                 prodDept.sales = parseFloat(prodDept.sales).toFixed(2);
-//                 prodDept.profit = parseFloat(prodDept.profit).toFixed(2);
-//                 deptArr.push(
-//                     [
-//                         prodDept.dept_id,
-//                         prodDept.dept_name,
-//                         prodDept.dept_overhead,
-//                         prodDept.sales,
-//                         prodDept.profit
-//                     ])
-//             });
-//             console.log(deptArr);
-//             promptSupervisor()
-//         };
-//     });
-// };
-
 
 var displayForSupervisor = function(results) {   
     var display = new displayTableSuper();
